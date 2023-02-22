@@ -24,7 +24,7 @@ function logMessage(value: string | number) {
 logMessage('hello');
 logMessage(100);
 
-interface Developer {
+interface Developer1 {
     name: string;
     skill: string;
 }
@@ -34,8 +34,30 @@ interface Person3 {
     age: number;
 }
 
-function askSomeone(someone: Developer | Person) {
+function askSomeone(someone: Developer1 | Person3) {
     someone.name
-    someone.skill
-    someone.age
+    someone.skill // 에러 발생! ( Developer1 과 Person3 의 공통 속성이 아니기 때문에!)
+    someone.age // 에러 발생! ( Developer1 과 Person3 의 공통 속성이 아니기 때문에!)
 }
+
+askSomeone({ name: '디벨롭퍼', skill: '웹 개발'});
+askSomeone({ name: '캡틴', age: 100 });
+
+
+/**
+ *  & (인터섹션 타입)
+ */
+
+ function askSomeone1(someone: Developer1 & Person3) {
+    // Developer1과 Person3가 갖고 있는 모든 속성 사용 가능!
+    someone.name
+    someone.skill 
+    someone.age 
+}
+
+askSomeone1({ name: '디벨롭퍼', skill: '웹 개발'}); // 에러 발생! age 값을 넘기지 않았음.
+askSomeone1({ name: '디벨롭퍼', skill: '웹 개발', age: 100});
+
+
+let minhyung: string | number | boolean;
+let jisung: string & number & boolean;
